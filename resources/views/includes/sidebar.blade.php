@@ -160,6 +160,27 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a href="">
+                    <i class="metismenu-icon fas fa-cubes"></i>
+                        Manage Recipient User
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                    <li>
+                            <a href="{{route('recipientUser.create')}}">
+                                <i class="metismenu-icon"></i>
+                                Add New Recipient User
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('recipientUser.index')}}">
+                                <i class="metismenu-icon">
+                                </i>View Recipient User List
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <!-- <li>
                     <a href="#">
                     <i class="metismenu-icon fas fa-store"></i>

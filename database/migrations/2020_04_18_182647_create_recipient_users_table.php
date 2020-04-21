@@ -17,7 +17,7 @@ class CreateRecipientUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('user_name');
+            $table->string('user_name')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('tbl_category_id');
             $table->foreign('tbl_category_id')->references('id')->on('categories');
@@ -28,12 +28,12 @@ class CreateRecipientUsersTable extends Migration
             $table->string('phone');
             $table->integer('earner_person');
             $table->integer('family_member');
-            $table->date('request_time');
+            $table->date('request_time')->nullable();
             $table->string('request_status');
             $table->string('status')->default('On');
             $table->tinyInteger('is_delete')->default(0);
             $table->bigInteger('created_by');
-            $table->bigInteger('updated_by');
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

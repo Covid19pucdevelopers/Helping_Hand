@@ -31,7 +31,8 @@ class RecipientUserController extends Controller
      */
     public function create()
     {
-        return view('recipientUser.create');
+        $category = Category::all()->where('is_delete','=',0)->where('status','=','On');
+        return view('recipientUser.create')->with(['categories'=>$category]);
     }
 
     /**
@@ -43,35 +44,46 @@ class RecipientUserController extends Controller
     public function store(Request $request)
     {
         $cat = Category::find($request->category);
-        $this->validate($request,[
-            'name' => 'required|string|max:255',
-            'email' => 'required|unique:recipient_users',
-            'password'=>'required|alpha_num|min:5',
-            'confirm_password' => 'required_with:password|same:password|min:5',                   
-            'type' => 'required',
-            'status' => 'required',
-            'phone' => $cat->is_phone.'numeric|min:11',
-            'nid' => $cat->is_nid.'numeric|min:10',
-            'birth_date'=> 'required',
-            'address' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-                
+        if($cat)
+        {
+            $this->validate($request,[
+                'name' => 'required|string|max:255',
+                'email' => 'required|unique:recipient_users',
+                'password'=>'required|alpha_num|min:5',
+                'confirm_password' => 'required_with:password|same:password|min:5', 
+                'earner_person' => 'required|numeric',
+                'family_member' => 'required|numeric',                 
+                'status' => 'required',
+                'phone' => $cat->is_phone.'',
+                'nid' => $cat->is_nid.'',
+                'address' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+        }
+        else
+        {
+            $this->validate($request,[
+                'category' => 'required',
+            ]);
+        }
+
         $path = $request->image->store('images', 'public');
         $data = [
             'name' => $request->name,
             'email' => strtolower($request->email),
             'password' => $request->password,
-            'tbl_user_type_id' => $request->type,
+            'tbl_category_id' => $request->category,
             'phone' => $request->phone,
             'status' => $request->status,
             'nid' => $request->nid,
             'birth_date' => $request->birth_date,
             'address' => $request->address,
+            'family_member' => $request->family_member,
+            'earner_person' => $request->earner_person,
+            'request_status' => 'Available',
             'created_by' =>Session::get('userid'),
             'image' => $path,
         ];
-        
 
         RecipientUser::create($data);
         return redirect()->back()->with('message','Save Successful.');

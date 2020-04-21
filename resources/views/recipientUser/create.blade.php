@@ -10,7 +10,7 @@
                 {{session()->get('message')}}
             </div>
         @endif    
-        <form class="" method="POST" action="{{url()->to('user')}}" enctype="multipart/form-data">
+        <form class="" method="POST" action="{{url()->to('recipientUser')}}" enctype="multipart/form-data">
             @csrf
             <div class="form-row">
 
@@ -29,7 +29,7 @@
 
                 <div class="col-md-6">
                     <div class="position-relative form-group">
-                        <label for="email" class="">{{_('Email')}}</label>
+                        <label for="email" class="">{{_('Email/User Name')}}</label>
                         <input name="email" id="email" placeholder="name@example.com" type="text" class="form-control @error('email') is-invalid @enderror">
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -81,14 +81,14 @@
                 </div>
                 <div class="col-md-6">
                     <div class="position-relative form-group">
-                        <label for="type" class="">{{_('Type')}}</label>
-                            <select name="type" id="type" type="" class="form-control @error('type') is-invalid @enderror">
-                                <option value="">--Select Type--</option>
-                                @foreach($types as $type)
-                                    <option value='{{$type->id}}'>{{$type->name}}</option>
+                        <label for="category" class="">{{_('Category')}}</label>
+                            <select name="category" id="category" type="" class="form-control @error('category') is-invalid @enderror">
+                                <option value="">--Select Category--</option>
+                                @foreach($categories as $category)
+                                    <option value='{{$category->id}}'>{{$category->name}}</option>
                                 @endforeach                                
                             </select>
-                        @error('type')
+                        @error('category')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -101,7 +101,7 @@
                 <div class="col-md-6">
                     <div class="position-relative form-group">
                         <label for="nid" class="">{{_('NID No')}}</label>
-                        <input name="nid" id="nid" placeholder="01xxxxxxxxx" type="" class="form-control @error('nid') is-invalid @enderror">
+                        <input name="nid" id="nid" placeholder="" type="" class="form-control @error('nid') is-invalid @enderror">
                         @error('nid')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -114,6 +114,30 @@
                         <label for="birth_date" class="">{{_('Birth Date')}}</label>
                         <input name="birth_date" id="birth_date" type="date" class="form-control @error('birth_date') is-invalid @enderror">
                         @error('birth_date')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror    
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="position-relative form-group">
+                        <label for="earner_person" class="">{{_('Earner Person No')}}</label>
+                        <input name="earner_person" id="earner_person" placeholder="" type="" class="form-control @error('earner_person') is-invalid @enderror">
+                        @error('earner_person')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror    
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="position-relative form-group">
+                        <label for="family_member" class="">{{_('Family Members')}}</label>
+                        <input name="family_member" id="family_member" type="numeric" class="form-control @error('family_member') is-invalid @enderror">
+                        @error('family_member')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -134,7 +158,12 @@
                 <div class="col-md-6">
                     <div class="position-relative form-group">
                         <label for="image" class="">{{_('Image')}}</label>
-                        <input name="image" id="image" type="file" class="form-control-file">
+                        <input name="image" id="image" type="file" class="form-control-file @error('image') is-invalid @enderror">
+                        @error('image')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror  
                     </div>
                 </div>
                 <div class="col-md-4">
