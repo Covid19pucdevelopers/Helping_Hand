@@ -16,7 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'tbl_user_types_id', 'nid', 'birth_date', 'phone', 'address', 'image', 'status',
+        'is_delete', 'created_by', 'updated_by',
     ];
 
     /**
@@ -35,5 +36,16 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    
     ];
+    
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password']= md5($password);
+    }
+
+    public function getNameAttribute($name)
+    {
+        return ucfirst($name);
+    }
 }
