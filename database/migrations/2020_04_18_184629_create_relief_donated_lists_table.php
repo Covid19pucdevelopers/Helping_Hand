@@ -19,8 +19,8 @@ class CreateReliefDonatedListsTable extends Migration
             $table->foreign('tbl_recipient_user_id')->references('id')->on('recipient_users');
             $table->unsignedBigInteger('tbl_user_id');
             $table->foreign('tbl_user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('tbl_relief_package_goods_id');
-            $table->foreign('tbl_relief_package_goods_id')->references('id')->on('relief_package_goods');
+            $table->unsignedBigInteger('tbl_relief_package_id');
+            $table->foreign('tbl_relief_package_id')->references('id')->on('relief_packages');
             $table->date('date');
             $table->string('status');
             $table->tinyInteger('is_delete')->default(0);
